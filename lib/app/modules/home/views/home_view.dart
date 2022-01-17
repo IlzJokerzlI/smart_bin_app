@@ -47,8 +47,11 @@ class HomeView extends GetView<HomeController> {
                 SizedBox(
                   height: 50,
                   child: ElevatedButton(
-                    child: const Text('Check Bin Status'),
-                    onPressed: () {},
+                    child: const Text(
+                      'Check Bin',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    onPressed: controller.onOpenBin,
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(AppColors.black),
