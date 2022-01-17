@@ -54,110 +54,119 @@ class BinView extends GetView<BinController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 15.0),
-                    Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
+                    Obx(
+                      () {
+                        return Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Expanded(
-                                  child: Text(
-                                    'Status',
-                                    style: TextStyle(
-                                      fontSize: 21,
-                                      fontWeight: FontWeight.bold,
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        'Status',
+                                        style: TextStyle(
+                                          fontSize: 21,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                     ),
+                                  ],
+                                ),
+                                const SizedBox(height: 15),
+                                Text(
+                                  'Fullness',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    fontSize: 16,
                                   ),
                                 ),
-                                InkWell(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Icon(Icons.history),
-                                  onTap: () {},
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 15),
-                            Text(
-                              'Fullness',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 10.0),
-                                  LinearPercentIndicator(
-                                    percent: 0.5,
-                                    progressColor: Colors.red,
-                                    lineHeight: 15,
-                                    trailing: Text('${50}%'),
-                                    padding: const EdgeInsets.only(right: 18.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 25),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Expanded(
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
                                   child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Text(
-                                            '156',
-                                            style: TextStyle(fontSize: 32),
-                                          ),
-                                          Text('gr'),
-                                        ],
+                                      const SizedBox(height: 10.0),
+                                      LinearPercentIndicator(
+                                        percent: 0.5,
+                                        progressColor: Colors.red,
+                                        lineHeight: 15,
+                                        trailing: Text('${50}%'),
+                                        padding:
+                                            const EdgeInsets.only(right: 18.0),
                                       ),
-                                      const SizedBox(height: 10),
-                                      Text('Current Weight'),
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 75,
-                                  child: VerticalDivider(
-                                    color: AppColors.black,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
+                                const SizedBox(height: 25),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
                                         children: [
-                                          Text(
-                                            '5',
-                                            style: TextStyle(fontSize: 32),
-                                          ),
-                                          Text('cm'),
+                                          (controller.data.value == null)
+                                              ? const CircularProgressIndicator()
+                                              : Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      '${controller.data.value!.weight}',
+                                                      style: const TextStyle(
+                                                          fontSize: 32),
+                                                    ),
+                                                    const Text('gr'),
+                                                  ],
+                                                ),
+                                          const SizedBox(height: 10),
+                                          const Text('Current Weight'),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
-                                      Text('Height Left'),
-                                    ],
-                                  ),
+                                    ),
+                                    const SizedBox(
+                                      height: 75,
+                                      child: VerticalDivider(
+                                        color: AppColors.black,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          (controller.data.value == null)
+                                              ? CircularProgressIndicator()
+                                              : Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      '${controller.data.value!.height}',
+                                                      style: const TextStyle(
+                                                          fontSize: 32),
+                                                    ),
+                                                    const Text('cm'),
+                                                  ],
+                                                ),
+                                          const SizedBox(height: 10),
+                                          const Text('Height Left'),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      ),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 25.0),
                     Column(
@@ -172,12 +181,7 @@ class BinView extends GetView<BinController> {
                         ),
                         ListTile(
                           title: const Text('Device ID'),
-                          trailing: Text('1234567890'),
-                          visualDensity: VisualDensity(vertical: -4),
-                        ),
-                        ListTile(
-                          title: const Text('Model'),
-                          trailing: Text('XDCA'),
+                          trailing: Text('esp32a'),
                           visualDensity: VisualDensity(vertical: -4),
                         ),
                       ],

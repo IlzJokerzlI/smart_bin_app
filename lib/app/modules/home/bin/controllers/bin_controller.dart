@@ -1,20 +1,32 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:smart_bin_app/app/api/api_data.dart';
+import 'package:smart_bin_app/app/models/data.dart';
+import 'package:smart_bin_app/app/shared/utils/error_display.dart';
 
 class BinController extends GetxController {
-  //TODO: Implement BinController
+  final data = Rx<Data?>(null);
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
+
+    try {
+      data.value = await ApiData.getData('esp32a');
+    } catch (e) {
+      if (e is DioError) {
+        displayError('Data Request Failed', e.message.toString());
+      } else {
+        displayError('Unkown Error', e.toString());
+      }
+    }
   }
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }
