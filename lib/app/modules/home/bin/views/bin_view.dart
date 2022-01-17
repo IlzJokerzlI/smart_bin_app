@@ -54,119 +54,104 @@ class BinView extends GetView<BinController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 15.0),
-                    Obx(
-                      () {
-                        return Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
                               children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        'Status',
-                                        style: TextStyle(
-                                          fontSize: 21,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                const Expanded(
+                                  child: Text(
+                                    'Status',
+                                    style: TextStyle(
+                                      fontSize: 21,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                  ],
-                                ),
-                                const SizedBox(height: 15),
-                                Text(
-                                  'Fullness',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                    fontSize: 16,
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const SizedBox(height: 10.0),
-                                      LinearPercentIndicator(
-                                        percent: 0.5,
-                                        progressColor: Colors.red,
-                                        lineHeight: 15,
-                                        trailing: Text('${50}%'),
-                                        padding:
-                                            const EdgeInsets.only(right: 18.0),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(height: 25),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          (controller.data.value == null)
-                                              ? const CircularProgressIndicator()
-                                              : Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      '${controller.data.value!.weight}',
-                                                      style: const TextStyle(
-                                                          fontSize: 32),
-                                                    ),
-                                                    const Text('gr'),
-                                                  ],
-                                                ),
-                                          const SizedBox(height: 10),
-                                          const Text('Current Weight'),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 75,
-                                      child: VerticalDivider(
-                                        color: AppColors.black,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          (controller.data.value == null)
-                                              ? CircularProgressIndicator()
-                                              : Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                      '${controller.data.value!.height}',
-                                                      style: const TextStyle(
-                                                          fontSize: 32),
-                                                    ),
-                                                    const Text('cm'),
-                                                  ],
-                                                ),
-                                          const SizedBox(height: 10),
-                                          const Text('Height Left'),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                Obx(() {
+                                  return (controller.isRefreshLoading.value)
+                                      ? const CircularProgressIndicator()
+                                      : InkWell(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          child: const Icon(Icons.refresh),
+                                          onTap: controller.onGetData,
+                                        );
+                                }),
                               ],
                             ),
-                          ),
-                        );
-                      },
+                            const SizedBox(height: 16),
+                            Obx(() {
+                              final heightPercentage =
+                                  controller.data.value?.heightPercentage;
+                              final weightPercentage =
+                                  controller.data.value?.weightPercentage;
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        CircularPercentIndicator(
+                                          percent:
+                                              (weightPercentage ?? 0) / 100,
+                                          progressColor:
+                                              ((weightPercentage ?? 0) >= 100)
+                                                  ? Colors.red
+                                                  : AppColors.blue,
+                                          radius: 108,
+                                          center: (weightPercentage == null)
+                                              ? const CircularProgressIndicator()
+                                              : Text(
+                                                  '$weightPercentage%',
+                                                  style: const TextStyle(
+                                                      fontSize: 28),
+                                                ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        const Text('Weight'),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 100,
+                                    child: VerticalDivider(
+                                      color: AppColors.black,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        CircularPercentIndicator(
+                                          percent:
+                                              (heightPercentage ?? 0) / 100,
+                                          progressColor:
+                                              ((heightPercentage ?? 0) >= 100)
+                                                  ? Colors.red
+                                                  : AppColors.blue,
+                                          radius: 108,
+                                          center: (heightPercentage == null)
+                                              ? const CircularProgressIndicator()
+                                              : Text(
+                                                  '$heightPercentage%',
+                                                  style: const TextStyle(
+                                                      fontSize: 28),
+                                                ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        const Text('Height'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }),
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 25.0),
                     Column(
@@ -181,8 +166,8 @@ class BinView extends GetView<BinController> {
                         ),
                         ListTile(
                           title: const Text('Device ID'),
-                          trailing: Text('esp32a'),
-                          visualDensity: VisualDensity(vertical: -4),
+                          trailing: Text(controller.deviceId),
+                          visualDensity: const VisualDensity(vertical: -4),
                         ),
                       ],
                     ),
