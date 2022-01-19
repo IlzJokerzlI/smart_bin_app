@@ -1,5 +1,5 @@
 class Data {
-  static const maxHeight = 300;
+  static const maxHeight = 7;
   static const maxWeight = 5000;
 
   late final double height;
@@ -13,7 +13,7 @@ class Data {
   Data(this.height, this.weight);
 
   Data.fromMap(Map<String, dynamic> map) {
-    height = double.parse(map['height']);
+    height = maxHeight - double.parse(map['height']);
     weight = double.parse(map['weight']);
   }
 }
