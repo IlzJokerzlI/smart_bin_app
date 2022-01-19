@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:smart_bin_app/app/shared/constants/app_colors.dart';
 
 import 'app/routes/app_pages.dart';
 
@@ -25,6 +26,14 @@ void main() {
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      theme: ThemeData(
+        scaffoldBackgroundColor: AppColors.green,
+        iconTheme: const IconThemeData(color: AppColors.black),
+        textTheme: const TextTheme(
+          bodyText2: TextStyle(color: AppColors.black),
+          subtitle1: TextStyle(color: AppColors.black),
+        ),
+      ),
     ),
   );
 }

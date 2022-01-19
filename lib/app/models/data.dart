@@ -5,8 +5,10 @@ class Data {
   late final double height;
   late final double weight;
 
-  int get heightPercentage => (height > maxHeight) ? 100 : height ~/ maxHeight;
-  int get weightPercentage => (weight > maxWeight) ? 100 : weight ~/ maxWeight;
+  int get heightPercentage =>
+      (height > maxHeight) ? 100 : (height * 100) ~/ maxHeight;
+  int get weightPercentage =>
+      (weight > maxWeight) ? 100 : (weight * 100) ~/ maxWeight;
 
   Data(this.height, this.weight);
 

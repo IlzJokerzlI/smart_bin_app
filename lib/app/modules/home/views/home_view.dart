@@ -11,7 +11,6 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.green,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: Get.width * 0.1),
         child: Column(
@@ -22,7 +21,6 @@ class HomeView extends GetView<HomeController> {
               'Hampas Smart Bin',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColors.black,
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               ),
@@ -38,7 +36,6 @@ class HomeView extends GetView<HomeController> {
                   'Welcome',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: AppColors.black,
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),

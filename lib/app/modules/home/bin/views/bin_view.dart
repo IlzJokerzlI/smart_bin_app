@@ -12,7 +12,6 @@ class BinView extends GetView<BinController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.green,
       body: Padding(
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Column(
@@ -90,31 +89,29 @@ class BinView extends GetView<BinController> {
                               final weightPercentage =
                                   controller.data.value?.weightPercentage;
                               return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        CircularPercentIndicator(
-                                          percent:
-                                              (weightPercentage ?? 0) / 100,
-                                          progressColor:
-                                              ((weightPercentage ?? 0) >= 100)
-                                                  ? Colors.red
-                                                  : AppColors.blue,
-                                          radius: 108,
-                                          center: (weightPercentage == null)
-                                              ? const CircularProgressIndicator()
-                                              : Text(
-                                                  '$weightPercentage%',
-                                                  style: const TextStyle(
-                                                      fontSize: 28),
-                                                ),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        const Text('Weight'),
-                                      ],
-                                    ),
+                                  Column(
+                                    children: [
+                                      CircularPercentIndicator(
+                                        percent: (weightPercentage ?? 0) / 100,
+                                        progressColor:
+                                            ((weightPercentage ?? 0) >= 100)
+                                                ? Colors.red
+                                                : AppColors.blue,
+                                        radius: 108,
+                                        center: (weightPercentage == null)
+                                            ? const CircularProgressIndicator()
+                                            : Text(
+                                                '$weightPercentage%',
+                                                style: const TextStyle(
+                                                    fontSize: 28),
+                                              ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      const Text('Weight'),
+                                    ],
                                   ),
                                   const SizedBox(
                                     height: 100,
@@ -122,29 +119,26 @@ class BinView extends GetView<BinController> {
                                       color: AppColors.black,
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        CircularPercentIndicator(
-                                          percent:
-                                              (heightPercentage ?? 0) / 100,
-                                          progressColor:
-                                              ((heightPercentage ?? 0) >= 100)
-                                                  ? Colors.red
-                                                  : AppColors.blue,
-                                          radius: 108,
-                                          center: (heightPercentage == null)
-                                              ? const CircularProgressIndicator()
-                                              : Text(
-                                                  '$heightPercentage%',
-                                                  style: const TextStyle(
-                                                      fontSize: 28),
-                                                ),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        const Text('Height'),
-                                      ],
-                                    ),
+                                  Column(
+                                    children: [
+                                      CircularPercentIndicator(
+                                        percent: (heightPercentage ?? 0) / 100,
+                                        progressColor:
+                                            ((heightPercentage ?? 0) >= 100)
+                                                ? Colors.red
+                                                : AppColors.blue,
+                                        radius: 108,
+                                        center: (heightPercentage == null)
+                                            ? const CircularProgressIndicator()
+                                            : Text(
+                                                '$heightPercentage%',
+                                                style: const TextStyle(
+                                                    fontSize: 28),
+                                              ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      const Text('Height'),
+                                    ],
                                   ),
                                 ],
                               );
@@ -165,8 +159,15 @@ class BinView extends GetView<BinController> {
                           ),
                         ),
                         ListTile(
-                          title: const Text('Device ID'),
-                          trailing: Text(controller.deviceId),
+                          style: ListTileStyle.list,
+                          title: const Text(
+                            'Device ID',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          trailing: Text(
+                            controller.deviceId,
+                            style: const TextStyle(fontSize: 16),
+                          ),
                           visualDensity: const VisualDensity(vertical: -4),
                         ),
                       ],
